@@ -11,8 +11,6 @@ const controllers: any = {};
 
 controllers.news = new NewsController();
 
-
-
 App.use(async (ctx, next) => {
 	Controller.newCtx = ctx;
 	next();

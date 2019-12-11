@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "db": "mongod --fork",
-    "dev": "ts-node ./index.ts",
+    "dev": "nodemon",
     "test": "ts-node ./test.ts"
   },
   "author": "",
@@ -18,7 +18,9 @@
   },
   "devDependencies": {
     "@types/node": "^12.12.16",
+    "nodemon": "^2.0.1",
     "require-all": "^3.0.0",
-    "ts-node-dev": "^1.0.0-pre.44"
+    "ts-node-dev": "^1.0.0-pre.44",
+    "tsconfig-paths": "^3.9.0"
   }
 }

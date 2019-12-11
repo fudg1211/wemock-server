@@ -1,0 +1,34 @@
+{
+  "defaultSeverity": "warning",
+  "extends": [
+    "tslint:recommended"
+  ],
+  "linterOptions": {
+    "exclude": [
+      "node_modules/**"
+    ]
+  },
+  "rules": {
+    "no-console": false,
+    "quotemark": [true, "single"], //使用单引号
+    "indent": [true, "tabs"],
+    "ordered-imports": false,
+    "object-literal-sort-keys": false,
+    "no-consecutive-blank-lines": [false],
+    "no-var-requires":false,
+    "whitespace": true,
+    "trailing-comma": [false],
+    "no-empty": false,
+    "no-namespace": false,
+    "class-name":true,// 类名以大驼峰格式命名
+    "no-trailing-whitespace": false,
+    "no-use-before-declare":true,// 在使用前必须声明
+    "no-var-keyword":true,// 不允许使用var
+    "max-classes-per-file":[true,10],// 每个文件中可定义类的个数
+    "max-file-line-count":[true,500],// 定义每个文件代码行数
+    "max-line-length":[true,300],// 定义每行代码数
+    "no-default-export":true,// 禁止使用export default关键字，因为当export对象名称发生变化时，需要修改import中的对象名。https://github.com/palantir/tslint/issues/1182#issue-151780453
+    "no-duplicate-imports":true,// 禁止在一个文件内，多次引用同一module
+    "interface-name":[false,"always-prefix"]// interface必须以I开头
+  }
+}

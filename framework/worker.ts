@@ -3,13 +3,30 @@ import * as Koa from 'koa';
 import * as KoaRouter from 'koa-router';
 import {koaRouter} from '../app/router';
 import {Controller} from './controller';
-import {NewsController} from '@/app/controller/news';
+
+const controllers = require('require-all')({
+	dirname     :  __dirname+'/../app/controller',
+	filter      :  /\.ts/,
+	excludeDirs :  /^\.(git|svn)$/,
+	recursive   : false
+})['.ts'];
+
+
+interface InewControllers {
+	[key: string]: any;
+}
+const newControllers: InewControllers = {};
+Object.keys(controllers).forEach((key: string) => {
+	const newKey: string = key.replace('Controller', '').replace(/./, (letter: string) => {
+		return letter.toLowerCase();
+	});
+	newControllers[newKey] = new controllers[key];
+});
+
 
 const Router = new KoaRouter();
 const App = new Koa();
-const controllers: any = {};
 
-controllers.news = new NewsController();
 
 App.use(async (ctx, next) => {
 	Controller.newCtx = ctx;
@@ -22,7 +39,7 @@ Router.get = (path: string, instance: any) => {
 };
 
 
-koaRouter(Router, controllers);
+koaRouter(Router, newControllers);
 App.use(Router.routes()).use(Router.allowedMethods());
 const server = App.listen();
 

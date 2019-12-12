@@ -1,1 +1,1 @@
-declare let foo: any;
+declare function getName(id: number | string): string;

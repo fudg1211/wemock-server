@@ -1,3 +1,8 @@
-export default {
-    port:8083
+export interface Iconfig {
+	port: number;
 }
+
+export const config: Iconfig = {
+	port: 8083,
+};
+

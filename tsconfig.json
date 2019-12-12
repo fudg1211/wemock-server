@@ -5,12 +5,21 @@
     "removeComments": true,
     "preserveConstEnums": true,
     "sourceMap": false,
-    "target": "es6",
+    "target": "es2017",
     "strict": false,
     "noEmit": true,
     "baseUrl": ".",
-    "paths":{
-      "@/*":["./*"]
+    "types" : ["node", "koa"],
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
     }
-  }
+  },
+  "files": [
+    "**/*.ts"
+  ],
+  "exclude": [
+    "./node_modules/**/*"
+  ]
 }

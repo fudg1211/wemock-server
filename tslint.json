@@ -20,6 +20,7 @@
     "trailing-comma": [false],
     "no-empty": false,
     "no-namespace": false,
+    "new-parens": false,
     "class-name":true,// 类名以大驼峰格式命名
     "no-trailing-whitespace": false,
     "no-use-before-declare":true,// 在使用前必须声明

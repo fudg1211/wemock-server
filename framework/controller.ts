@@ -1,8 +1,13 @@
-class Controller {
-	public static newCtx: any;
-	[key: string]: any;
+import * as Koa from 'koa';
+import {config, Iconfig} from '@/config/default.config.ts';
 
-	public get ctx() {
+
+class Controller {
+	public static newCtx: Koa.BaseContext;
+	[key: string]: any;
+	public config: Iconfig = config;
+
+	public get ctx(): Koa.BaseContext {
 		return Controller.newCtx;
 	}
 

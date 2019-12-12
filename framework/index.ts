@@ -1,10 +1,11 @@
 import * as http from 'http';
 import * as CP from 'child_process';
 import * as OS from 'os';
+import {config} from '@/config/default.config.ts';
 
 const cpuLength = OS.cpus().length;
 const server = http.createServer();
-server.listen(8083);
+server.listen(config.port);
 
 const workers: any = {};
 const maxRestartNum = 100;
@@ -31,7 +32,6 @@ function createWorker(exitNum: number = 0) {
 	worker.send('server', server);
 }
 
-
 function createLogWorker(exitNum: number = 0) {
 	logWorker = CP.fork(__dirname + '/logger.ts');
 	workers[logWorker.pid] = {
@@ -55,9 +55,11 @@ for (let i = 0; i < cpuLength; i++) {
 	createWorker();
 }
 
+
+
 process.on('exit', () => {
 	Object.keys(workers).forEach((key) => {
-		workers[key].kill();
+		workers[key].worker.kill();
 		delete workers[key];
 	});
 });

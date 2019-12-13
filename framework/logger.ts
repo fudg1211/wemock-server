@@ -1,14 +1,25 @@
-import {configure, getLogger} from 'log4js';
+import {configure, getLogger, Logger} from 'log4js';
+import {config} from '@/config/default.config';
 
 configure({
-	appenders: {access: {type: 'console'}},
-	categories: { default: { appenders: ['access'], level: 'info' } }
+	appenders: {
+		everything: { type: 'dateFile', filename: config.logPath+'/all-logs.log', pattern: '.yyyy-MM-dd', compress: false }
+	},
+	categories: {
+		default: { appenders: [ 'everything' ], level: 'debug'}
+	}
 });
 
-const logger = getLogger('access');
 
-process.on('message', (log) => {
-	logger.info(log.msg);
+interface Iaa extends Logger {
+	[key: string]: any;
+}
+
+const logger: Iaa = getLogger('access') as Iaa;
+
+
+process.on('message', (log: { type: string, msg: string }) => {
+	logger[log.type](log.msg);
 });
 
 

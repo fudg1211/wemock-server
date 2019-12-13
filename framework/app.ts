@@ -1,5 +1,6 @@
 import {config, Iconfig} from '@/config/default.config.ts';
-import {Iapp} from './app.interface';
+import {Iapp, Ilogger} from './app.interface';
+import {db} from './database';
 
 interface Icontroller {
 	[key: string]: any;
@@ -22,9 +23,36 @@ Object.keys(controllers).forEach((key: string) => {
 	newControllers[newKey] = new controllers[key];
 });
 
+function log(type: string, msg: string) {
+	process.send({
+		type:'log',
+		msg:{
+			type,
+			msg
+		}
+	});
+}
+
+
+interface Iloggers {
+	[key: string]: any;
+}
+
+function setLogers(keys: string[]): object {
+	const loggers: Iloggers = {};
+	keys.forEach((key: string) => {
+		loggers[key] = (msg: string) => {
+			log(key, msg);
+		};
+	});
+	return loggers;
+}
+
 export const app: Iapp = {
 	config,
-	controller: newControllers
+	controller: newControllers,
+	db,
+	logger: setLogers(['debug', 'info', 'warn', 'error', 'fatal']) as Ilogger
 };
 
 

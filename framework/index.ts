@@ -20,9 +20,9 @@ function createWorker(exitNum: number = 0) {
 			createWorker(++exitNum);
 		}
 	});
-	worker.on('message', (msg) => {
-		if (msg.type === 'log') {
-			logWorker.send(msg);
+	worker.on('message', (log) => {
+		if (log.type === 'log') {
+			logWorker.send(log.msg);
 		}
 	});
 	workers[worker.pid] = {

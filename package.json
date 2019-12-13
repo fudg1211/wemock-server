@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "db": "mongod --fork",
+    "db": "mongod",
     "dev": "ts-node-dev -r tsconfig-paths/register ./index.ts",
     "test": "ts-node ./test.ts"
   },
@@ -15,7 +15,8 @@
     "koa": "2.11.0",
     "koa-router": "^7.4.0",
     "log4js": "^6.1.0",
-    "mongodb": "^3.4.0"
+    "mongodb": "^3.4.0",
+    "mongoose": "^5.8.1"
   },
   "devDependencies": {
     "nodemon": "2.0.0",

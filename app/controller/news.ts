@@ -11,6 +11,7 @@ export class NewsController extends Controller {
 	}
 
 	public async aa() {
+		this.app.logger.error('sdfssss');
 		this.app.ctx.body = this.app.config.port;
 	}
 

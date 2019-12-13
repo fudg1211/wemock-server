@@ -6,7 +6,6 @@ interface Icontroller {
 	[key: string]: any;
 }
 
-
 const controllers = require('require-all')({
 	dirname: __dirname + '/../app/controller',
 	filter: /\.ts/,
@@ -23,10 +22,21 @@ Object.keys(controllers).forEach((key: string) => {
 	newControllers[newKey] = new controllers[key];
 });
 
+
+
+const model = require('require-all')({
+	dirname: __dirname + '/../app/model',
+	filter: /\.ts/,
+	excludeDirs: /^\.(git|svn)$/,
+	recursive: false
+})['.ts'];
+
+
+
 function log(type: string, msg: string) {
 	process.send({
-		type:'log',
-		msg:{
+		type: 'log',
+		msg: {
 			type,
 			msg
 		}
@@ -52,6 +62,7 @@ export const app: Iapp = {
 	config,
 	controller: newControllers,
 	db,
+	model,
 	logger: setLogers(['debug', 'info', 'warn', 'error', 'fatal']) as Ilogger
 };
 

@@ -11,8 +11,12 @@ export class NewsController extends Controller {
 	}
 
 	public async aa() {
-		this.app.logger.error('sdfssss');
+		const {model} = this.app;
+		model.news.create({
+			name:'ssdname',
+			type:'ssstype',
+			author:'sssauthor'
+		});
 		this.app.ctx.body = this.app.config.port;
 	}
-
 }

@@ -16,10 +16,17 @@ export interface Ilogger {
 	fatal(msg: string): void;
 }
 
+export interface Imodel {
+	news?: mongoose.Model<mongoose.Document>;
+	[key: string]: mongoose.Model<mongoose.Document>;
+}
+
+
 export interface Iapp {
 	config: Iconfig;
 	controller: Icontroller;
 	ctx?: Koa.BaseContext;
 	db?: mongoose.Connection;
 	logger: Ilogger;
+	model: Imodel;
 }

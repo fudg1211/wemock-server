@@ -1,4 +1,4 @@
-export const koaRouter = (router: any, controller: any) => {
+export const DoRouter = (router: any, controller: any) => {
 	console.log('router');
 	router.get('/news', controller.news);
 };

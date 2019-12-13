@@ -1,20 +1,19 @@
-import * as Koa from 'koa';
-import {config, Iconfig} from '@/config/default.config.ts';
+import {Iapp} from './app.interface';
 
 
 class Controller {
-	public static newCtx: Koa.BaseContext;
-	[key: string]: any;
-	public config: Iconfig = config;
+	public static app: Iapp;
 
-	public get ctx(): Koa.BaseContext {
-		return Controller.newCtx;
+	[key: string]: any;
+
+	public get app(): Iapp {
+		return Controller.app;
 	}
 
-	public action() {
-		const ac = this.ctx.query.ac;
+	public async action() {
+		const ac = this.app.ctx.query.ac;
 		if (this[ac]) {
-			this[ac]();
+			await this[ac]();
 		}
 	}
 }

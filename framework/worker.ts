@@ -1,52 +1,49 @@
-'use strict';
 import * as Koa from 'koa';
+import * as http from 'http';
 import * as KoaRouter from 'koa-router';
-import {koaRouter} from '../app/router';
+import {DoRouter} from '../app/router';
+import {app} from './app';
 import {Controller} from './controller';
-
-const controllers = require('require-all')({
-	dirname     :  __dirname+'/../app/controller',
-	filter      :  /\.ts/,
-	excludeDirs :  /^\.(git|svn)$/,
-	recursive   : false
-})['.ts'];
-
-
-interface InewControllers {
-	[key: string]: any;
-}
-const newControllers: InewControllers = {};
-Object.keys(controllers).forEach((key: string) => {
-	const newKey: string = key.replace('Controller', '').replace(/./, (letter: string) => {
-		return letter.toLowerCase();
-	});
-	newControllers[newKey] = new controllers[key];
-});
 
 
 const Router = new KoaRouter();
 const App = new Koa();
 
 
-App.use(async (ctx, next) => {
-	Controller.newCtx = ctx;
-	next();
+Router.use(async (ctx, next) => {
+	app.ctx = ctx;
+	Controller.app = app;
+	await next();
 });
 
-const oldGet = Router.get;
-Router.get = (path: string, instance: any) => {
-	return oldGet.call(Router, path, instance.action.bind(instance));
+
+interface IgetRouters {
+	get(path: string, instance: any): any;
+}
+
+const getRouters: IgetRouters = {
+	get: (path: string, instance: any) => {
+		Router.get(path, instance.action.bind(instance));
+	}
 };
+DoRouter(getRouters, app.controller);
 
-
-koaRouter(Router, newControllers);
 App.use(Router.routes()).use(Router.allowedMethods());
 const server = App.listen();
 
-process.on('message', (name, tcp) => {
+let worker: http.Server;
+process.on('message', (name, tcp: http.Server) => {
+	worker = tcp;
 	if (name === 'server') {
 		tcp.on('connection', (socket: any) => {
 			server.emit('connection', socket);
 		});
 	}
+});
+process.on('uncaughtException', () => {
+	// 停止接收新的连接
+	worker.close(() => {
+		// 所有已有的连接断开后，退出进程
+		process.exit(1);
+	});
 });

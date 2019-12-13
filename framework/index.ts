@@ -4,7 +4,7 @@ import * as OS from 'os';
 import {config} from '@/config/default.config.ts';
 
 const cpuLength = OS.cpus().length;
-const server = http.createServer();
+const server: http.Server = http.createServer();
 server.listen(config.port);
 
 const workers: any = {};

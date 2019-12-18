@@ -42,9 +42,8 @@ function createLogWorker(exitNum: number = 0) {
 		exitNum = workers[logWorker.pid].exitNum;
 		delete workers[logWorker.pid];
 		if (exitNum < maxRestartNum) {
-			createWorker(++exitNum);
+			createLogWorker(++exitNum);
 		}
-		createLogWorker(++exitNum);
 	});
 }
 

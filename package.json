@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "types": "./main.d.ts",
   "scripts": {
     "db": "mongod",
     "dev": "ts-node-dev -r tsconfig-paths/register ./index.ts",
@@ -12,11 +13,14 @@
   "license": "ISC",
   "dependencies": {
     "@types/koa": "^2.11.0",
+    "@types/koa-router": "^7.0.42",
+    "@types/mongoose": "^5.5.34",
     "koa": "2.11.0",
     "koa-router": "^7.4.0",
     "log4js": "^6.1.0",
     "mongodb": "^3.4.0",
-    "mongoose": "^5.8.1"
+    "mongoose": "^5.8.1",
+    "typescript": "^3.7.3"
   },
   "devDependencies": {
     "nodemon": "2.0.0",

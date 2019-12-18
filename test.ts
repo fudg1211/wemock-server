@@ -1,13 +1,7 @@
-interface Test {
-	[key: string]: string;
-	a?: string;
+function Test<T>(a: T): T {
+	return a;
 }
 
-const test: Test = {};
-const Aa = (key: string) => {
-	test[key] = 'sdf';
+const Aa = <T>(t:T)=>void{
+
 };
-
-Aa('a');
-
-console.log(test.a);

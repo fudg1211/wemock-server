@@ -5,18 +5,24 @@ export class NewsController extends Controller {
 		await new Promise((resolve, reject) => {
 			setTimeout(() => {
 				resolve(true);
-			}, 1000);
+			}, 0);
 		});
+
+		this.app.logger.info('info----');
+
 		this.app.ctx.body = 22212;
 	}
 
 	public async aa() {
-		const {model} = this.app;
+		const {model,logger} = this.app;
 		model.news.create({
 			name:'ssdname',
 			type:'ssstype',
 			author:'sssauthor'
 		});
-		this.app.ctx.body = this.app.config.port;
+
+		logger.error('ssssf1');
+
+		this.app.ctx.body = this.app.config.port+'1';
 	}
 }

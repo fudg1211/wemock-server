@@ -52,6 +52,7 @@ function setLogers(keys: string[]): object {
 	const loggers: Iloggers = {};
 	keys.forEach((key: string) => {
 		loggers[key] = (msg: string) => {
+			console.log(msg);
 			log(key, msg);
 		};
 	});

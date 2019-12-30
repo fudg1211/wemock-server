@@ -9,7 +9,7 @@ server.listen(config.port);
 
 const workers: any = {};
 const maxRestartNum = 100;
-let logWorker: any;
+let logWorker: CP.ChildProcess;
 
 function createWorker(exitNum: number = 0) {
 	const worker = CP.fork(__dirname + '/worker.ts');
@@ -22,6 +22,9 @@ function createWorker(exitNum: number = 0) {
 	});
 	worker.on('message', (log) => {
 		if (log.type === 'log') {
+			if(!logWorker){
+				createLogWorker();
+			}
 			logWorker.send(log.msg);
 		}
 	});
@@ -47,13 +50,10 @@ function createLogWorker(exitNum: number = 0) {
 	});
 }
 
-createLogWorker();
-
 
 for (let i = 0; i < cpuLength; i++) {
 	createWorker();
 }
-
 
 
 process.on('exit', () => {

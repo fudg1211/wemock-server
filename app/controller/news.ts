@@ -8,9 +8,9 @@ export class NewsController extends Controller {
 			}, 0);
 		});
 
-		this.app.logger.info('info----');
+		this.app.logger.info('inf11----');
 
-		this.app.ctx.body = 22212;
+		this.app.ctx.body = 2221112;
 	}
 
 	public async aa() {
@@ -21,7 +21,7 @@ export class NewsController extends Controller {
 			author:'sssauthor'
 		});
 
-		logger.error('ssssf1');
+		logger.error('ssssf123332');
 
 		this.app.ctx.body = this.app.config.port+'1';
 	}

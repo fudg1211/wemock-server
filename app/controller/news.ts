@@ -9,7 +9,6 @@ export class NewsController extends Controller {
 		});
 
 		this.app.logger.info('inf11----');
-
 		this.app.ctx.body = 2221112;
 	}
 

@@ -1,4 +1,5 @@
 import {Controller} from '@/framework/controller';
+import * as OS from 'os';
 
 export class NewsController extends Controller {
 	public async test() {
@@ -9,7 +10,7 @@ export class NewsController extends Controller {
 		});
 
 		this.app.logger.info('inf11----');
-		this.app.ctx.body = 2221112;
+		this.app.ctx.body = process.memoryUsage().heapTotal+'/'+OS.totalmem();
 	}
 
 	public async aa() {

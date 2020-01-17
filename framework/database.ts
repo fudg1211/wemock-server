@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 
-mongoose.connect('mongodb://127.0.0.1/wemock');
+mongoose.connect('mongodb://172.17.0.3/wemock');
 const db: mongoose.Connection = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
